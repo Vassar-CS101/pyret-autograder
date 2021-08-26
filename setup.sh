@@ -9,4 +9,4 @@ bash nodesource_setup.sh
 apt install -y make python3 jq build-essential nodejs npm unzip
 
 # Unpack pyret zip
-unzip "source/autograder/pyret-lang.zip" -d pyret-lang
+unzip "source/pyret-autograder/pyret-lang.zip" -d pyret-lang
