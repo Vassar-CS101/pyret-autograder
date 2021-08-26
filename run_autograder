@@ -5,16 +5,21 @@ source /autograder/source/config.sh
 # Format the submission
 pip3 install pyparsing
 echo "Removing comments from student submission files..."
-python3 /autograder/source/autograder/remove_comments.py /autograder/submission/$ASSIGNMENT-code.arr
-python3 /autograder/source/autograder/remove_comments.py /autograder/submission/$ASSIGNMENT-tests-examples.arr
+/autograder/source/autograder/remove_comments.py \
+    /autograder/submission/$ASSIGNMENT-code.arr
+/autograder/source/autograder/remove_comments.py \
+    /autograder/submission/$ASSIGNMENT-tests-examples.arr
 
 # Run the actual autograder
 cd /autograder/source/autograder
-python3 run_autograder.py
+./run_autograder.py
 
 # Compile the results
 cd /autograder/results
 jq --slurp -c '.' */results.json > raw_results.json
 
 # Convert results to gradescope's format and location
-python3 /autograder/source/autograder/result_processing.py raw_results.json results.json /autograder/source/points.json
+/autograder/source/autograder/result_processing.py \
+    raw_results.json \
+    results.json \
+    /autograder/source/points.json
