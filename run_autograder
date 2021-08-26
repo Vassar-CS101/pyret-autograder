@@ -5,13 +5,13 @@ source /autograder/source/config.sh
 # Format the submission
 pip3 install pyparsing
 echo "Removing comments from student submission files..."
-/autograder/source/autograder/remove_comments.py \
+/autograder/source/pyret-autograder/remove_comments.py \
     /autograder/submission/$ASSIGNMENT-code.arr
-/autograder/source/autograder/remove_comments.py \
+/autograder/source/pyret-autograder/remove_comments.py \
     /autograder/submission/$ASSIGNMENT-tests-examples.arr
 
 # Run the actual autograder
-cd /autograder/source/autograder
+cd /autograder/source/pyret-autograder
 ./run_autograder.py
 
 # Compile the results
@@ -19,7 +19,7 @@ cd /autograder/results
 jq --slurp -c '.' */results.json > raw_results.json
 
 # Convert results to gradescope's format and location
-/autograder/source/autograder/result_processing.py \
+/autograder/source/pyret-autograder/result_processing.py \
     raw_results.json \
     results.json \
     /autograder/source/points.json
