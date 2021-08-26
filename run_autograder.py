@@ -20,10 +20,9 @@ RESULTS = f"{AUTOGRADER}/results"
 SUBMISSION = f"{AUTOGRADER}/submission"
 CACHE_DIR = f"{SOURCE}/cache"
 STENCIL = f"{SOURCE}/stencil"
-INSTRUCTOR = f"{SOURCE}/instructor"
-WHEATS = f"{INSTRUCTOR}/impls/wheat"
-CHAFFS = f"{INSTRUCTOR}/impls/chaff"
-TESTS = f"{INSTRUCTOR}/tests"
+WHEATS = f"{SOURCE}/impls/wheat"
+CHAFFS = f"{SOURCE}/impls/chaff"
+TESTS = f"{SOURCE}/tests"
 
 
 class CompileError(Exception):
