@@ -28,14 +28,11 @@ try:
             data = re.sub(table_pattern, "", data, count=num_occur - 1)
 
     os.remove(filename)
-    output = open(filename, "w", encoding="utf-8")
-
-    if "provide *" not in data:
-        output.write("provide *\n")
-    if "provide-types *" not in data:
-        output.write("provide-types *\n")
-
-    output.write(data)
-    output.close()
+    with open(filename, "w", encoding="utf-8") as output:
+        if "provide *" not in data:
+            output.write("provide *\n")
+        if "provide-types *" not in data:
+            output.write("provide-types *\n")
+        output.write(data)
 except FileNotFoundError:
     print(f"ERROR: File {sys.argv[1]} not found.")
