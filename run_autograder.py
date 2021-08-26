@@ -12,7 +12,7 @@ from prehook_lib import ImportFixer
 NODE_PATH = "nodejs"
 JQ = "jq"
 AUTOGRADER = "/autograder"
-SOURCE = f"{AUTOGRADER}/source/autograder"
+SOURCE = f"{AUTOGRADER}/source/pyret-autograder"
 PYRET_PATH = f"{AUTOGRADER}/pyret-lang"
 NODE_MODULES_PATH = f"{PYRET_PATH}/node_modules"
 RUNNER_PATH = f"{SOURCE}/runner.js"
