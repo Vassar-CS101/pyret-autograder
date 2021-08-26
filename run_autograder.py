@@ -1,9 +1,10 @@
+import json
 import os
-from os.path import basename, dirname
+import re
 import shutil
 import subprocess
-import json
-import re
+from os.path import basename, dirname
+
 from prehook_lib import ImportFixer
 
 NODE_PATH = "nodejs"
@@ -93,33 +94,32 @@ def run(code_path, test_path, common_dir):
     print("Copying tests into the job directory at " + copied_test_path)
     shutil.copy(test_path, copied_test_path)
     test_path = copied_test_path
-    
+
     if "wheat" in code_path or "chaff" in code_path:
         try:
             data = ""
             with open(test_path, "r", encoding="utf-8") as test:
-               data = test.read()
-            
+                data = test.read()
+
             with open(test_path, "w", encoding="utf-8") as test:
                 test.write("provide *\n")
                 test.write("provide-types *\n")
-                test.write("include file(\"../" + os.path.relpath(code_path) + "\")\n")
-                
-                data = re.sub(r'provide.*[\n]', '', data)
+                test.write(
+                    'include file("../' + os.path.relpath(code_path) + '")\n'
+                )
+
+                data = re.sub(r"provide.*[\n]", "", data)
                 test.write(data)
         except Exception as ex:
             print("ERROR: Error while adding include to wheat or chaff!")
             print(ex)
-               
 
     def report_error(error):
         with open(f"{job_path}/results.json", "w") as output:
             error = {
                 "code": code_path,
                 "tests": test_path,
-                "result": {
-                    "Err": error
-                }
+                "result": {"Err": error},
             }
             output.write(json.dumps(error))
 
@@ -147,11 +147,9 @@ def run(code_path, test_path, common_dir):
             args = [NODE_PATH, compiled_tests_path]
             env = {"NODE_PATH": NODE_MODULES_PATH}
             try:
-                    subprocess.run(args,
-                           check=True,
-                           stdout=output,
-                           stderr=error,
-                           env=env)
+                subprocess.run(
+                    args, check=True, stdout=output, stderr=error, env=env
+                )
             except Exception as ex:
                 print(f"ERROR: failure running tests on code")
 
@@ -167,10 +165,16 @@ def run(code_path, test_path, common_dir):
     if nonempty(output_path):
         # Write out results
         args = [
-            JQ, "--compact-output", "--arg", "code", code_path, "--arg",
-            "test", test_path,
+            JQ,
+            "--compact-output",
+            "--arg",
+            "code",
+            code_path,
+            "--arg",
+            "test",
+            test_path,
             '{ code: $code, tests: $test, result: {Ok: (. |= map(select(.loc | contains("tests.arr"))))} }',
-            output_path
+            output_path,
         ]
         with open(f"{job_path}/results.json", "w") as output:
             print("Writing results for this job...")
@@ -182,7 +186,7 @@ def run(code_path, test_path, common_dir):
         os.remove(compiled_tests_path)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     os.chdir(AUTOGRADER)
     if os.path.exists(RESULTS):
         shutil.rmtree(RESULTS)
@@ -203,7 +207,7 @@ if __name__ == '__main__':
     student_common_dir = dirname(student_common_path)
 
     os.chdir(SOURCE)  # FIXME: is this needed?
-    
+
     # Printing paths for debugging
     print("COMMON PATH: " + student_common_path)
     print("CODE PATH: " + student_code_path)
