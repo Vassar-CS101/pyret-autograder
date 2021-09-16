@@ -2,7 +2,7 @@
 
 To prepare the autograder for use with Gradescope:
 
-1. Create/find the respective assignment branch in the [`pyret-assignments`
+1. Create/find the assignment subdirectory in the [`pyret-assignments`
 repository](https://github.com/Vassar-CS101/pyret-assignments).
 
 2. Place wheats, chaffs, tests, and stencil files in their respective
