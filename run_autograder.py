@@ -87,7 +87,7 @@ def run(code_path, test_path, common_dir):
     # Make a directory for the job
     job_name = f"{basename(code_path)};{basename(test_path)}"
     job_path = f"{RESULTS}/{job_name}"
-    print("Making directory for the job at " + job_path)
+    print("Making directory for the job at", job_path)
     os.mkdir(job_path)
 
     # Copy tests into the job directory
@@ -210,9 +210,9 @@ if __name__ == "__main__":
     os.chdir(SOURCE)  # FIXME: is this needed?
 
     # Printing paths for debugging
-    print("COMMON PATH: " + student_common_path)
-    print("CODE PATH: " + student_code_path)
-    print("TEST PATH: " + student_test_path)
+    print("COMMON PATH:", student_common_path)
+    print("CODE PATH:", student_code_path)
+    print("TEST PATH:", student_test_path)
 
     # Fix import statements in student's common file
     if student_common_path:
@@ -227,7 +227,7 @@ if __name__ == "__main__":
     for root, _, files in os.walk(TESTS):
         print("Running test suite against student code...")
         for f in files:
-            if f != "README":
+            if f not in ["README", "README.md", ".gitkeep"]:
                 test = os.path.join(root, f)
                 run(student_code_path, test, student_common_dir)
 
@@ -235,7 +235,7 @@ if __name__ == "__main__":
     for root, _, files in os.walk(WHEATS):
         print("Running wheats against student tests...")
         for f in files:
-            if f != "README":
+            if f not in ["README", "README.md", ".gitkeep"]:
                 wheat = os.path.join(root, f)
                 fix_imports(wheat, wheat, dirname(wheat))
                 run(wheat, student_test_path, student_common_dir)
@@ -244,7 +244,7 @@ if __name__ == "__main__":
     for root, _, files in os.walk(CHAFFS):
         print("Running chaffs against student tests...")
         for f in files:
-            if f != "README":
+            if f not in ["README", "README.md", ".gitkeep"]:
                 chaff = os.path.join(root, f)
                 fix_imports(chaff, chaff, dirname(chaff))
                 run(chaff, student_test_path, student_common_dir)
