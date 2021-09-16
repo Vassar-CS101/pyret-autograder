@@ -3,7 +3,7 @@
 source /autograder/source/config.sh
 
 # Format the submission
-pip3 install pyparsing
+#pip3 install pyparsing  # Moved to pyret-assignments/setup.sh
 echo "Removing comments from student submission files..."
 /autograder/source/pyret-autograder/remove_comments.py \
     /autograder/submission/$ASSIGNMENT-code.arr
