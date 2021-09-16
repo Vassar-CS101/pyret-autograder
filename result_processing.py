@@ -6,7 +6,8 @@ from os.path import basename, dirname
 
 _, input_filename, output_filename, points_filename = sys.argv
 
-# points is dict of string -> float with keys of "wheat", filenames of chaffs, & names corresponding to check block names in testsuite
+# points is dict of string -> float with keys of "wheat", filenames of
+# chaffs, and names corresponding to check block names in testsuite
 
 visibility = "after_published"
 
@@ -45,7 +46,7 @@ def gen_error(filename, message, examplar=False):
             )
 
 
-# populate testsuite_tests
+# Populate testsuite_tests
 for test in raw:
     if "wheat" in test["code"]:
         if "Err" in test["result"]:
@@ -71,7 +72,8 @@ for test in raw:
                     something_failed = True
             tests_passed[chaff_name] = something_failed
             chaff_names.add(chaff_name)
-    else:  # test suite
+    else:
+        # Test suite
         if "Err" in test["result"]:
             gen_error(
                 basename(dirname(test["tests"].split(";")[1])),
@@ -85,9 +87,14 @@ for test in raw:
 
 tests_scores = (
     []
-)  # list("name": str, "score": float, "max_score": float, "output": str, "visibility": "after_published"
+)
+# list("name": str,
+#      "score": float,
+#      "max_score": float,
+#      "output": str,
+#      "visibility": "after_published"
 for name in tests_passed:
-    # assign points
+    # Assign points
     all_names_in_points = {
         i[0]: i[1]
         for i in {
@@ -106,7 +113,8 @@ for name in tests_passed:
                 "examplar" not in points
                 or "num-for-full-credit" not in points["examplar"]
             ):
-                # we're dealing with a chaff but aren't handling it as a percentage of chaffs passed
+                # We're dealing with a chaff but aren't handling it as a
+                # percentage of chaffs passed
                 score = (
                     all_names_in_points[name]
                     if (
