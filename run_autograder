@@ -22,4 +22,4 @@ jq --slurp -c '.' */results.json > raw_results.json
 /autograder/source/pyret-autograder/result_processing.py \
     raw_results.json \
     results.json \
-    /autograder/source/points.json
+    /autograder/source/$ASSIGNMENT/points.json
