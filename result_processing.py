@@ -9,7 +9,7 @@ _, input_filename, output_filename, points_filename = sys.argv
 # points is dict of string -> float with keys of "wheat", filenames of
 # chaffs, and names corresponding to check block names in testsuite
 
-visibility = "after_published"
+visibility = "visible"
 
 with open(input_filename) as raw_f, open(points_filename) as points_f:
     raw, points = js.load(raw_f), js.load(points_f)
