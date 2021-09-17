@@ -146,11 +146,10 @@ for name in tests_passed:
                 )
         else:
             score = all_names_in_points[name] if tests_passed[name] else 0
-            message = (
-                "Passed all tests in this block!"
-                if score == max_score
-                else "Failed some tests in this block"
-            )
+            if score == max_score:
+                message = "Passed all tests in this block!"
+            else:
+                message = "Failed some tests in this block"
             tests_scores.append(
                 {
                     "name": name,
@@ -173,6 +172,7 @@ if (
         len(chaff_names),
         points["examplar"]["num-for-full-credit"],
     )
+
     if "wheat" in tests_passed and tests_passed["wheat"]:
         for name in chaff_names:
             if name in tests_passed and tests_passed[name]:
@@ -180,6 +180,7 @@ if (
         message = f"{chaffs_passed}/{total_chaffs} buggies caught; need {total_for_100_chaffs} for full credit"
     else:
         message = "Wheat failed"
+
     tests_scores.append(
         {
             "name": "buggies",
@@ -191,7 +192,7 @@ if (
     )
 
 output = {
-    "stdout_visibility": "hidden",
+    "stdout_visibility": "visible",
     "tests": tests_scores + tests_errored,
 }
 
