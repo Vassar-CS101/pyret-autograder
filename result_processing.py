@@ -88,14 +88,15 @@ for test in raw:
                     [t["passed"] for t in check_block["tests"]]
                 )
 
-tests_scores = (
-    []
-)
+tests_scores = []
 # list("name": str,
 #      "score": float,
 #      "max_score": float,
 #      "output": str,
 #      "visibility": "after_published"
+
+total = 0
+
 for name in tests_passed:
     # Assign points
     all_names_in_points = {
@@ -148,6 +149,8 @@ for name in tests_passed:
             if tests_passed[name]:
                 score = all_names_in_points[name]
 
+            total += score
+
             if score == max_score:
                 message = "Passed all tests in this block!"
             else:
@@ -196,6 +199,7 @@ if (
 output = {
     "stdout_visibility": "visible",
     "tests": tests_scores + tests_errored,
+    "score": score
 }
 
 with open(output_filename, "w+") as f:
