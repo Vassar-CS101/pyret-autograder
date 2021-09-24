@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import json as js
+import json
 import sys
 from os.path import basename, dirname
 
@@ -11,8 +11,11 @@ _, input_filename, output_filename, points_filename = sys.argv
 
 visibility = "visible"
 
-with open(input_filename) as raw_f, open(points_filename) as points_f:
-    raw, points = js.load(raw_f), js.load(points_f)
+with open(input_filename) as raw_f:
+    raw = json.load(raw_f)
+
+with open(points_filename) as points_f:
+    points = json.load(points_f)
 
 tests_passed = {}  # name -> bool  (keys same as for points)
 tests_errored = []
@@ -50,9 +53,9 @@ def gen_error(filename, message, examplar=False):
 for test in raw:
     if "wheat" in test["code"]:
         if "Err" in test["result"]:
-            pass  # gen_error("wheat", test["result"]["Err"], True)
+            pass
         elif len(test["result"]["Ok"]) == 0:
-            pass  # gen_error("wheat", "Missing file", True)
+            pass
         else:
             something_failed = False
             for check_block in test["result"]["Ok"]:
@@ -62,9 +65,9 @@ for test in raw:
     elif "chaff" in test["code"]:
         chaff_name = basename(test["code"]).replace(".arr", "")
         if "Err" in test["result"]:
-            pass  # gen_error(chaff_name, test["result"]["Err"], True)
+            pass
         elif len(test["result"]["Ok"]) == 0:
-            pass  # gen_error(chaff_name, "Missing file", True)
+            pass
         else:
             something_failed = False
             for check_block in test["result"]["Ok"]:
@@ -115,15 +118,11 @@ for name in tests_passed:
             ):
                 # We're dealing with a chaff but aren't handling it as a
                 # percentage of chaffs passed
-                score = (
-                    all_names_in_points[name]
-                    if (
-                        "wheat" in tests_passed
-                        and tests_passed["wheat"]
-                        and tests_passed[name]
-                    )
-                    else 0
-                )
+                score = 0
+                if ("wheat" in tests_passed
+                    and tests_passed["wheat"]
+                    and tests_passed[name]):
+                    score = all_names_in_points[name]
 
                 message = "Failed some tests in this block"
                 if score == max_score:
@@ -145,7 +144,10 @@ for name in tests_passed:
                     }
                 )
         else:
-            score = all_names_in_points[name] if tests_passed[name] else 0
+            score = 0
+            if tests_passed[name]:
+                score = all_names_in_points[name]
+
             if score == max_score:
                 message = "Passed all tests in this block!"
             else:
@@ -197,4 +199,4 @@ output = {
 }
 
 with open(output_filename, "w+") as f:
-    js.dump(output, f)
+    json.dump(output, f)
