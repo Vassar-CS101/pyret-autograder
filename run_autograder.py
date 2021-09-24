@@ -13,7 +13,7 @@ NODE_PATH = "nodejs"
 JQ = "jq"
 AUTOGRADER = "/autograder"
 SOURCE = f"{AUTOGRADER}/source/pyret-autograder"
-PYRET_PATH = f"{AUTOGRADER}/pyret-lang"
+PYRET_PATH = f"{AUTOGRADER}/pyret-lang/pyret-lang"
 NODE_MODULES_PATH = f"{PYRET_PATH}/node_modules"
 RUNNER_PATH = f"{SOURCE}/runner.js"
 RESULTS = f"{AUTOGRADER}/results"
@@ -67,7 +67,7 @@ def compile_tests(test_path, error_file):
     env = {"NODE_PATH": NODE_MODULES_PATH}
     try:
         print("Compiling tests...")
-        subprocess.run(args, check=True, stderr=error_file, env=env)
+        subprocess.run(args, check=True, stderr=1, env=env)
     except Exception as e:
         raise CompileError(e)
 
@@ -133,8 +133,16 @@ def run(code_path, test_path, common_dir):
         # Compile test file
         try:
             compiled_tests_path = compile_tests(test_path, error)
-        except CompileError:
+        except CompileError as e:
             print(f"Compilation failed: {code_path} {test_path}")
+            print(e)
+            print(os.listdir("/autograder"))
+            if os.path.isdir("/autograder/pyret-lang/pyret-lang"):
+                print(os.listdir("/autograder/pyret-lang/pyret-lang"))
+                if os.path.isdir("/autograder/pyret-lang/build"):
+                    print(os.listdir("/autograder/pyret-lang/build"))
+                    if os.path.isdir("/autograder/pyret-lang/build/phaseA"):
+                        print(os.listdir("/autograder/pyret-lang/build/phaseA"))
             report_error("Compilation")
             return
 
