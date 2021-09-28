@@ -26,7 +26,7 @@ class ImportFixer:
     def finalize(self):
         self.content = re.sub(
             r'shared-gdrive\(["\'](.*?)["\'].*?\n?.*?\)',
-            rf'file("{self.rel_stencil_dir}/\1")',
+            rf'file("{self.rel_stencil_dir}/\1.arr")',
             self.content,
             re.M,
         )
