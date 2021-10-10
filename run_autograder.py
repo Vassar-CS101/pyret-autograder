@@ -106,10 +106,13 @@ def run(code_path, test_path, common_dir):
                 test.write("provide *\n")
                 test.write("provide-types *\n")
                 test.write(
-                    'include file("../' + os.path.relpath(code_path) + '")\n'
+                    'include file("' + os.path.relpath(code_path) + '")\n'
                 )
 
                 data = re.sub(r"provide.*[\n]", "", data)
+                data = re.sub(
+                    r'include my-gdrive\("hw.code-ignore.arr"\)', "", data
+                )
                 test.write(data)
         except Exception as ex:
             print("ERROR: Error while adding include to wheat or chaff!")
@@ -142,7 +145,9 @@ def run(code_path, test_path, common_dir):
                 if os.path.isdir("/autograder/pyret-lang/build"):
                     print(os.listdir("/autograder/pyret-lang/build"))
                     if os.path.isdir("/autograder/pyret-lang/build/phaseA"):
-                        print(os.listdir("/autograder/pyret-lang/build/phaseA"))
+                        print(
+                            os.listdir("/autograder/pyret-lang/build/phaseA")
+                        )
             report_error("Compilation")
             return
 
