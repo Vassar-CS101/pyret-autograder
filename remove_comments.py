@@ -23,10 +23,12 @@ try:
         data = re.sub(r"#.*\n", "\n", data)
         data = re.sub(r"include image\n", "include tables\n", data)
         data = re.sub(r"->\s*Image\s*:", ":", data)
-        table_pattern = r"include shared-gdrive\(\"dcic-2021\", \"1wyQZj_L0qqV9Ekgr9au6RX2iqt2Ga8Ep\"\)"
-        num_occur = len(re.findall(table_pattern, data))
+        table_pattern = r"include shared-gdrive\(\"dcic-2021\",\s*\"1wyQZj_L0qqV9Ekgr9au6RX2iqt2Ga8Ep\"\)"
+        num_occur = len(re.findall(table_pattern, data, flags=re.DOTALL))
         if num_occur > 1:
-            data = re.sub(table_pattern, "", data, count=num_occur - 1)
+            data = re.sub(
+                table_pattern, "", data, count=num_occur - 1, flags=re.DOTALL
+            )
 
     os.remove(filename)
     with open(filename, "w", encoding="utf-8") as output:
@@ -36,4 +38,4 @@ try:
             output.write("provide-types *\n")
         output.write(data)
 except FileNotFoundError:
-    print(f"ERROR: File {sys.argv[1]} not found.")
+    print(f"ERROR: File {filename} not found.", file=sys.stderr)
