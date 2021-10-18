@@ -30,5 +30,6 @@ class ImportFixer:
             self.content,
             re.M,
         )
+        self.content = re.sub(r"\.arr\.arr", ".arr", self.content)
         with open(self.target_path, "w", encoding="utf-8") as f:
             f.write(self.content)
