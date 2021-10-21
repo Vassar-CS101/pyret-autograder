@@ -157,7 +157,7 @@ def run(code_path, test_path, common_dir):
             )
             if os.path.isdir("/autograder/pyret-lang/pyret-lang"):
                 print(
-                    "/autograder/pyret-lang/pyret-lang contains",
+                    "/autograder/pyret-lang/pyret-lang contains:",
                     os.listdir("/autograder/pyret-lang/pyret-lang"),
                     file=sys.stderr,
                 )
@@ -174,7 +174,7 @@ def run(code_path, test_path, common_dir):
                         os.listdir("/autograder/pyret-lang/build/phaseA"),
                         file=sys.stderr,
                     )
-            report_error("Compilation")
+            report_error("Compilation. Check that your file name and function names exactly match those given in the assignment.")
             return
 
         # Assume a timeout occurs
