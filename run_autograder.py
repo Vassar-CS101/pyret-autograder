@@ -5,6 +5,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 from os.path import basename, dirname
 
 from prehook_lib import ImportFixer
@@ -67,12 +68,16 @@ def compile_tests(test_path, error_file):
     env = {"NODE_PATH": NODE_MODULES_PATH}
     try:
         print("Compiling tests...")
-        subprocess.run(args, check=True, stderr=1, env=env)
+        subprocess.run(args, check=True, env=env)
     except Exception as e:
+        print(e, file=sys.stderr)
         raise CompileError(e)
 
     # Check for compile error
     if not nonempty(compiled_tests_path):
+        print(
+            "Check", compiled_tests_path, "for compile error", file=sys.stderr
+        )
         raise CompileError("Compile error")
 
     return compiled_tests_path
@@ -115,7 +120,10 @@ def run(code_path, test_path, common_dir):
                 )
                 test.write(data)
         except Exception as ex:
-            print("ERROR: Error while adding include to wheat or chaff!")
+            print(
+                "Error while adding include to wheat or chaff!",
+                file=sys.stderr,
+            )
             print(ex)
 
     def report_error(error):
@@ -137,17 +145,35 @@ def run(code_path, test_path, common_dir):
         try:
             compiled_tests_path = compile_tests(test_path, error)
         except CompileError as e:
-            print(f"Compilation failed: {code_path} {test_path}")
-            print(e)
-            print(os.listdir("/autograder"))
+            print(
+                f"Compilation failed: {code_path} {test_path}",
+                file=sys.stderr,
+            )
+            print(e, file=sys.stderr)
+            print(
+                "/autograder contains:",
+                os.listdir("/autograder"),
+                file=sys.stderr,
+            )
             if os.path.isdir("/autograder/pyret-lang/pyret-lang"):
-                print(os.listdir("/autograder/pyret-lang/pyret-lang"))
-                if os.path.isdir("/autograder/pyret-lang/build"):
-                    print(os.listdir("/autograder/pyret-lang/build"))
-                    if os.path.isdir("/autograder/pyret-lang/build/phaseA"):
-                        print(
-                            os.listdir("/autograder/pyret-lang/build/phaseA")
-                        )
+                print(
+                    "/autograder/pyret-lang/pyret-lang contains",
+                    os.listdir("/autograder/pyret-lang/pyret-lang"),
+                    file=sys.stderr,
+                )
+            if os.path.isdir("/autograder/pyret-lang/build"):
+                print(
+                    "/autograder/pyret-lang/build contains:",
+                    os.listdir(
+                        "/autograder/pyret-lang/build", file=sys.stderr
+                    ),
+                )
+                if os.path.isdir("/autograder/pyret-lang/build/phaseA"):
+                    print(
+                        "/autograder/pyret-lang/build/phaseA contains:",
+                        os.listdir("/autograder/pyret-lang/build/phaseA"),
+                        file=sys.stderr,
+                    )
             report_error("Compilation")
             return
 
@@ -165,15 +191,17 @@ def run(code_path, test_path, common_dir):
                     args, check=True, stdout=output, stderr=error, env=env
                 )
             except Exception as ex:
-                print(f"ERROR: failure running tests on code")
+                print("Error: Failure running tests on code", file=sys.stderr)
 
     if nonempty(error_output):
         with open(error_output, "r", encoding="utf-8") as error:
-            if "memory" in error.read():
-                print("Out of memory error occurred.")
+            error_text = error.read()
+            if "memory" in error_text:
+                print("Out of memory error occurred.", file=sys.stderr)
                 report_error("OutOfMemory")
             else:
-                print("Runtime error occurred.")
+                print("Runtime error occurred.", file=sys.stderr)
+                print(error_text, file=sys.stderr)
                 report_error("Runtime")
 
     if nonempty(output_path):
