@@ -49,7 +49,6 @@ def compile_tests(test_path, error_file):
     args = [
         NODE_PATH,
         "build/phaseA/pyret.jarr",
-        "-no-display-progress",
         "--build-runnable",
         rel_test_path,
         "--outfile",
