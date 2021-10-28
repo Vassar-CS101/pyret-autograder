@@ -19,7 +19,7 @@ try:
         multiline_comment = pyparsing.nestedExpr("#|", "|#").suppress()
         data = multiline_comment.transformString(data)
 
-        #data = re.sub(r"use context.*\n", "\n", data)
+        data = re.sub(r"use context.*\n", "\n", data)
         data = re.sub(r"#.*\n", "\n", data)
         data = re.sub(r"include image\n", "include tables\n", data)
         data = re.sub(r"->\s*Image\s*:", ":", data)
