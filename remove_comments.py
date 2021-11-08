@@ -29,6 +29,7 @@ try:
             data = re.sub(
                 table_pattern, "", data, count=num_occur - 1, flags=re.DOTALL
             )
+        data = re.sub("use context essentials2021", "", data)
 
     os.remove(filename)
     with open(filename, "w", encoding="utf-8") as output:
@@ -36,6 +37,9 @@ try:
             output.write("provide *\n")
         if "provide-types *" not in data:
             output.write("provide-types *\n")
+        if "include essentials2021" not in data:
+            output.write("include essentials2021\n")
+
         output.write(data)
 except FileNotFoundError:
     print(f"ERROR: File {filename} not found.", file=sys.stderr)
