@@ -23,7 +23,7 @@ try:
         data = re.sub(r"#.*\n", "\n", data)
         data = re.sub(r"include image\n", "include tables\n", data)
         data = re.sub(r"->\s*Image\s*:", ":", data)
-        table_pattern = r"include shared-gdrive\(\"dcic-2021\",\s*\"1wyQZj_L0qqV9Ekgr9au6RX2iqt2Ga8Ep\"\)"
+        table_pattern = r"include shared-gdrive\(\s*\"dcic-2021\",\s*\"1wyQZj_L0qqV9Ekgr9au6RX2iqt2Ga8Ep\"\)"
         num_occur = len(re.findall(table_pattern, data, flags=re.DOTALL))
         if num_occur > 1:
             data = re.sub(
