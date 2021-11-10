@@ -23,6 +23,7 @@ try:
 
         # Remove comments, but not if it might have the end of an enclosing
         # docstring.
+        data = re.sub(r"#\s*\n", "\n", data)
         data = re.sub(r"#.*[^\`]\n", "\n", data)
 
         data = re.sub(r"include image\n", "include tables\n", data)
