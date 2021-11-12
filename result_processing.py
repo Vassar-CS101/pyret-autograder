@@ -144,13 +144,11 @@ for name in tests_passed:
                 )
         else:
             score = 0
+            message = "Failed some tests in this block"
             if tests_passed[name]:
                 score = all_names_in_points[name]
-
-            if score == max_score:
-                message = "Passed all tests in this block!"
-            else:
-                message = "Failed some tests in this block"
+                if score == max_score:
+                    message = "Passed all tests in this block!"
             tests_scores.append(
                 {
                     "name": name,
