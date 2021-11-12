@@ -124,7 +124,7 @@ for name in tests_passed:
                     score = all_names_in_points[name]
 
                 message = "Failed some tests in this block"
-                if score == max_score:
+                if tests_passed[name]:
                     message = "Passed all tests in this block!"
                 elif "wheat" not in tests_passed:
                     message = "Wheat errored"
