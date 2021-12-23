@@ -149,8 +149,9 @@ def run(code_path, test_path, common_dir):
                 file=sys.stderr,
             )
             print(e, file=sys.stderr)
-            report_error("Compilation. Check that your function names " +
-                         "exactly match those given in the assignment.")
+            report_error("😫 Pyret error. Check that all names " +
+                         "match those given in the assignment and " + 
+                         "functions take the right arguments.")
             return
 
         # Assume a timeout occurs
@@ -174,11 +175,11 @@ def run(code_path, test_path, common_dir):
             error_text = error.read()
             if "memory" in error_text:
                 print("Out of memory error occurred.", file=sys.stderr)
-                report_error("OutOfMemory")
+                report_error("🤯 OutOfMemory")
             else:
                 print("Runtime error occurred.", file=sys.stderr)
                 print(error_text, file=sys.stderr)
-                report_error("Runtime")
+                report_error("🥺 Runtime")
 
     if nonempty(output_path):
         # Write out results
