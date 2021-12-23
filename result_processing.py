@@ -123,13 +123,13 @@ for name in tests_passed:
                         and tests_passed[name]):
                     score = all_names_in_points[name]
 
-                message = "Failed some tests in this block"
+                message = "☹️ Failed some tests in this block."
                 if tests_passed[name]:
-                    message = "Passed all tests in this block!"
+                    message = "😀 Passed all tests in this block."
                 elif "wheat" not in tests_passed:
-                    message = "Wheat errored"
+                    message = "☹️ Wheat errored"
                 elif not tests_passed["wheat"]:
-                    message = "Wheat failed"
+                    message = "☹️ Wheat failed"
 
                 tests_scores.append(
                     {
