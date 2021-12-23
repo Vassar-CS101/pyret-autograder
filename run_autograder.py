@@ -150,7 +150,7 @@ def run(code_path, test_path, common_dir):
             )
             print(e, file=sys.stderr)
             report_error("😫 Pyret error. Check that all names " +
-                         "match those given in the assignment and " + 
+                         "match those given in the assignment and " +
                          "functions take the right arguments.")
             return
 
@@ -179,7 +179,8 @@ def run(code_path, test_path, common_dir):
             else:
                 print("Runtime error occurred.", file=sys.stderr)
                 print(error_text, file=sys.stderr)
-                report_error("🥺 Runtime error")
+                report_error("🥺 Runtime error. Check that your code works " +
+                             "on code.pyret.org. If so, try resubmitting.")
 
     if nonempty(output_path):
         # Write out results
