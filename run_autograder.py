@@ -175,11 +175,11 @@ def run(code_path, test_path, common_dir):
             error_text = error.read()
             if "memory" in error_text:
                 print("Out of memory error occurred.", file=sys.stderr)
-                report_error("🤯 OutOfMemory")
+                report_error("🤯 Out of memory error")
             else:
                 print("Runtime error occurred.", file=sys.stderr)
                 print(error_text, file=sys.stderr)
-                report_error("🥺 Runtime")
+                report_error("🥺 Runtime error")
 
     if nonempty(output_path):
         # Write out results

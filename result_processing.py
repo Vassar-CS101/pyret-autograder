@@ -32,7 +32,7 @@ def gen_error(filename, message, examplar=False):
                 "name": filename,
                 "score": 0,
                 "max_score": points["examplar"][filename],
-                "output": f"Error: {message}",
+                "output": message,
                 "visibility": visibility,
             }
         )
@@ -43,7 +43,7 @@ def gen_error(filename, message, examplar=False):
                     "name": name,
                     "score": 0,
                     "max_score": score,
-                    "output": f"Error: {message}",
+                    "output": message,
                     "visibility": visibility,
                 }
             )
