@@ -119,8 +119,8 @@ for name in tests_passed:
                 # percentage of chaffs passed
                 score = 0
                 if ("wheat" in tests_passed
-                    and tests_passed["wheat"]
-                    and tests_passed[name]):
+                        and tests_passed["wheat"]
+                        and tests_passed[name]):
                     score = all_names_in_points[name]
 
                 message = "Failed some tests in this block"
@@ -176,7 +176,8 @@ if (
         for name in chaff_names:
             if name in tests_passed and tests_passed[name]:
                 chaffs_passed += 1
-        message = f"{chaffs_passed}/{total_chaffs} buggies caught; need {total_for_100_chaffs} for full credit"
+        message = f"{chaffs_passed}/{total_chaffs} bugs caught; " + \
+            f"need {total_for_100_chaffs} for full credit"
     else:
         message = "Wheat failed"
 

@@ -173,7 +173,9 @@ def run(code_path, test_path, common_dir):
                         os.listdir("/autograder/pyret-lang/build/phaseA"),
                         file=sys.stderr,
                     )
-            report_error("Compilation. Check that your file name and function names exactly match those given in the assignment.")
+            report_error("Compilation. Check that your file name and " +
+                         "function names exactly match those given in the " +
+                         "assignment.")
             return
 
         # Assume a timeout occurs
@@ -189,7 +191,7 @@ def run(code_path, test_path, common_dir):
                 subprocess.run(
                     args, check=True, stdout=output, stderr=error, env=env
                 )
-            except Exception as ex:
+            except Exception:
                 print("Error: Failure running tests on code", file=sys.stderr)
 
     if nonempty(error_output):
