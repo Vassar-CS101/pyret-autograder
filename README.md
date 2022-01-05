@@ -11,3 +11,18 @@ directories.
 3. Update `points.json` to match the wheats, chaffs, and tests.
 
 4. Zip the contents of the branch and upload to Gradescope.
+
+
+## Archiving a semester
+
+At the end of each semester, make an annotated tag, e.g.,
+
+```
+git tag -a 2021b
+git push --tags
+```
+
+In the tag names, `a` is Spring and `b` is Fall so they sort correctly.
+
+This allows the autograders used in previous semesters to be easily downloaded 
+from GitHub as zip files.
