@@ -3,13 +3,13 @@
 source /autograder/source/config.sh
 
 echo "Renaming submission."
-mv /autograder/submission/*.arr /autograder/submission/$ASSIGNMENT-code.arr
+mv /autograder/submission/*.arr /autograder/submission/$ASSIGNMENT.arr
 
 # Format the submission
 #pip3 install pyparsing  # Moved to pyret-assignments/setup.sh
 echo "Removing comments from student submission files..."
 /autograder/source/pyret-autograder/remove_comments.py \
-    /autograder/submission/$ASSIGNMENT-code.arr
+    /autograder/submission/$ASSIGNMENT.arr
 /autograder/source/pyret-autograder/remove_comments.py \
     /autograder/submission/$ASSIGNMENT-tests-examples.arr
 
