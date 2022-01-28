@@ -219,10 +219,10 @@ if __name__ == "__main__":
         for f in files:
             if "common" in f:
                 student_common_path = os.path.join(root, f)
-            if "code" in f:
-                student_code_path = os.path.join(root, f)
-            if "tests" in f:
+            elif "tests" in f:
                 student_test_path = os.path.join(root, f)
+            elif ".arr" in f:
+                student_code_path = os.path.joing(root, f)
     # assert student_common_path and student_code_path and student_test_path
     student_common_dir = dirname(student_common_path)
 
