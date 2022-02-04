@@ -123,13 +123,13 @@ for name in tests_passed:
                         and tests_passed[name]):
                     score = all_names_in_points[name]
 
-                message = "☹️ Failed some tests in this block."
+                message = "☹️ Failed some instructor tests."
                 if tests_passed[name]:
-                    message = "😀 Passed all tests in this block."
+                    message = "😀 Passed all instructor tests."
                 elif "wheat" not in tests_passed:
-                    message = "☹️ Wheat errored"
+                    message = "☹️ Wheat errored."
                 elif not tests_passed["wheat"]:
-                    message = "☹️ Wheat failed"
+                    message = "☹️ Wheat failed."
 
                 tests_scores.append(
                     {
@@ -144,11 +144,11 @@ for name in tests_passed:
                 )
         else:
             score = 0
-            message = "☹️ Failed some tests in this block."
+            message = "☹️ Failed some instructor tests."
             if tests_passed[name]:
                 score = all_names_in_points[name]
                 if score == max_score:
-                    message = "😀 Passed all tests in this block."
+                    message = "😀 Passed all instructor tests."
             tests_scores.append(
                 {
                     "name": name,
@@ -179,7 +179,7 @@ if (
         message = f"{chaffs_passed}/{total_chaffs} bugs caught; " + \
             f"need {total_for_100_chaffs} for full credit"
     else:
-        message = "Wheat failed"
+        message = "☹️ Wheat failed."
 
     tests_scores.append(
         {
