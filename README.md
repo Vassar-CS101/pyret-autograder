@@ -18,7 +18,7 @@ directories.
 At the end of each semester, make an annotated tag, e.g.,
 
 ```
-git tag -a 2021b
+git tag -a 2021b -m "Spring 2021"
 git push --tags
 ```
 
