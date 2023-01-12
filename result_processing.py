@@ -33,7 +33,7 @@ def gen_error(filename, message, examplar=False):
                 "score": 0,
                 "max_score": points["examplar"][filename],
                 "output": message,
-                "visibility": visibility,
+                "visibility": "visible",
             }
         )
     else:
@@ -44,7 +44,9 @@ def gen_error(filename, message, examplar=False):
                     "score": 0,
                     "max_score": score,
                     "output": message,
-                    "visibility": visibility,
+                    "visibility": "visible"
+                    if "on submission" in name
+                    else visibility,
                 }
             )
 
@@ -118,9 +120,11 @@ for name in tests_passed:
                 # We're dealing with a chaff but aren't handling it as a
                 # percentage of chaffs passed
                 score = 0
-                if ("wheat" in tests_passed
-                        and tests_passed["wheat"]
-                        and tests_passed[name]):
+                if (
+                    "wheat" in tests_passed
+                    and tests_passed["wheat"]
+                    and tests_passed[name]
+                ):
                     score = all_names_in_points[name]
 
                 message = "☹️ Failed some instructor tests."
@@ -176,18 +180,20 @@ if (
         for name in chaff_names:
             if name in tests_passed and tests_passed[name]:
                 chaffs_passed += 1
-        message = f"{chaffs_passed}/{total_chaffs} bugs caught; " + \
-            f"need {total_for_100_chaffs} for full credit"
+        message = (
+            f"{chaffs_passed}/{total_chaffs} bugs caught; "
+            + f"need {total_for_100_chaffs} for full credit"
+        )
     else:
         message = "☹️ Wheat failed."
 
     tests_scores.append(
         {
-            "name": "buggies",
+            "name": "bugs",
             "score": min(total_for_100_chaffs, chaffs_passed),
             "max_score": total_for_100_chaffs,
             "output": message,
-            "visibility": visibility,
+            "visibility": "visible",
         }
     )
 
