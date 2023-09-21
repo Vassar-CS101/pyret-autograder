@@ -27,6 +27,7 @@ try:
         data = re.sub(r"#.*[^\`]\n", "\n", data)
 
         data = re.sub(r"include image\n", "include tables\n", data)
+        data = re.sub(r"include lists\n", "\n", data)
         data = re.sub(r"->\s*Image\s*:", ":", data)
         table_pattern = r"include shared-gdrive\(\s*\"dcic-2021\"," + \
             r"\s*\"1wyQZj_L0qqV9Ekgr9au6RX2iqt2Ga8Ep\"\s*\)"
